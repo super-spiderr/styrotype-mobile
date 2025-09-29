@@ -1,8 +1,14 @@
-import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
-import { AuthContextType, User,AuthProviderProps } from "./AuthProvider.types"
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+} from "react";
+import { AuthContextType, User, AuthProviderProps } from "./AuthProvider.types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -21,7 +27,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const login = useCallback((userData: User) => setUser(userData), []);
   const logout = useCallback(() => setUser(null), []);
 
-  const value = useMemo(() => ({ user, login, logout, loading }), [user, loading, login, logout]);
+  const value = useMemo(
+    () => ({
+      user,
+      login,
+      logout,
+      loading,
+      setUser,
+    }),
+    [user, loading, login, logout, setUser]
+  );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

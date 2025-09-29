@@ -4,20 +4,18 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { NavigationContainer } from "@react-navigation/native";
 import RootStackNavigator from "./navigators/RootStackNavigator";
-
-
-
+import { AuthProvider } from "./providers/AuthProvider/AuthProvider";
 
 export default function App() {
   return (
-     <SafeAreaProvider>
+    <SafeAreaProvider>
       <ThemeProvider>
-        <NavigationContainer>
-        <RootStackNavigator />
-      </NavigationContainer>
+        <AuthProvider>
+          <NavigationContainer>
+            <RootStackNavigator />
+          </NavigationContainer>
+        </AuthProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
 }
-
-
